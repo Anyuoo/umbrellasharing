@@ -16,7 +16,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "wx.pay")
+@ConfigurationProperties(prefix = "pay.wx")
 public class WxPayProperties {
     private String appId;
     private String appSecret;

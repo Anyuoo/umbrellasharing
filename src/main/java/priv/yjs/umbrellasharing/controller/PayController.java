@@ -18,6 +18,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import priv.yjs.umbrellasharing.annotation.CommonResultHandler;
+import priv.yjs.umbrellasharing.common.ResultType;
+import priv.yjs.umbrellasharing.service.PayService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -40,6 +42,17 @@ import java.util.Optional;
 public class PayController {
     @Resource
     private WxPayApiConfig wxPayApiConfig;
+    @Resource
+    private PayService payService;
+
+    @ApiOperation("微信支付")
+    @PostMapping()
+    public ResultType pay() {
+        if (payService.pay()) {
+            return ResultType.SUCCESS;
+        }
+        return ResultType.FAIL;
+    }
 
     /**
      * 扫码支付
@@ -55,7 +68,7 @@ public class PayController {
             //获取扫码支付（模式一）url
             var qrCodeUrl = WxPayKit.bizPayUrl(wxPayApiConfig.getPartnerKey(), wxPayApiConfig.getAppId(), wxPayApiConfig.getMchId(), orderId);
             //生成二维码保存的路径
-            String name = "payQRCode1.png";
+            String name = "WxPayQR.jpg";
             boolean encode = QrCodeKit.encode(qrCodeUrl, BarcodeFormat.QR_CODE, 3, ErrorCorrectionLevel.H,
                     "png", 200, 200,
                     ResourceUtils.getURL("classpath:").getPath().concat("static").concat(File.separator).concat(name));
@@ -67,7 +80,7 @@ public class PayController {
             e.printStackTrace();
 //            return new AjaxResult().addError("系统异常：" + e.getMessage());
         }
-        return Optional.empty();
+        return null;
     }
 
     /**

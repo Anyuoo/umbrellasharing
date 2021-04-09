@@ -65,7 +65,7 @@ public class PlacementService extends ServiceImpl<PlacementMapper, Placement> im
             return false;
         }
         //查询繁殖点信息
-        final var placement = getById(pmId).orElseThrow(() -> GlobalException.causeBy(ResultType.PLACEMENT_NOT_EXISTED));
+        final var placement = getById(pmId).orElseThrow(() -> GlobalException.causeBy(ResultType.PLACEMENT_NOT_EXIST));
 
         final List<Umbrella> umbrellas = new ArrayList<>(ids.size());
         //查询雨伞信息和修改雨伞状态

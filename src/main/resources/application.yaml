@@ -32,12 +32,12 @@ mybatis-plus:
       logic-not-delete-value: 0
 
 #微信支付
-wx:
-  pay:
-    app-id: ss
-    app-secret: ss
-    cert-path: ss
-    mch-id: s
-    domain: d
-    partner-key: a
 
+pay:
+  wx:
+    app-id: \u5E94\u7528\u7F16\u53F7
+    app-secret: appSecret \u662F appId \u5BF9\u5E94\u7684\u63A5\u53E3\u5BC6\u7801\uFF0C\u5FAE\u4FE1\u516C\u4F17\u53F7\u6388\u6743\u83B7\u53D6\u7528\u6237 openId \u65F6\u4F7F\u7528
+    cert-path: \u5FAE\u4FE1\u652F\u4ED8\u5546\u6237\u53F7
+    mch-id: API \u5BC6\u94A5
+    domain: \u5916\u7F51\u8BBF\u95EE\u9879\u76EE\u7684\u57DF\u540D\uFF0C\u652F\u4ED8\u901A\u77E5\u4E2D\u4F1A\u4F7F\u7528
+    partner-key: apiclient_cert.p1 \u8BC1\u4E66\u8DEF\u5F84\uFF0C\u5728\u5FAE\u4FE1\u5546\u6237\u540E\u53F0\u4E0B\u8F7D

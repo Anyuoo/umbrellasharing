@@ -93,6 +93,15 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> implements ISe
         return Optional.of(price.add(new BigDecimal(overtimePay)));
     }
 
+    /**
+     * 更新订单状态
+     * @param userId 用户id
+     */
+    public boolean updateOrderPayStatus(long userId) {
+        var order = getOrderByUserId(userId).orElseThrow(() -> GlobalException.causeBy(ResultType.ORDER_NOT_EXIST));
+        order.setHasPaid(true);
+        return updateById(order);
+    }
 
 }
 

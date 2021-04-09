@@ -11,7 +11,6 @@ import priv.yjs.umbrellasharing.mapper.UserMapper;
 import priv.yjs.umbrellasharing.model.entity.User;
 
 import javax.annotation.Resource;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -28,7 +27,7 @@ public class UserService extends ServiceImpl<UserMapper, User> implements IServi
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public Optional<User> getUserByUsername(String username) {
-        return lambdaQuery().eq(StringUtils.isNotBlank(username),User::getUsername, username).oneOpt();
+        return lambdaQuery().eq(StringUtils.isNotBlank(username), User::getUsername, username).oneOpt();
     }
 
     /**

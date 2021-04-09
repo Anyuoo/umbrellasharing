@@ -9,7 +9,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 
 /**
- *微信支付属性
+ * 微信支付属性
+ *
  * @author Anyu
  * @since 2021/4/8
  */

@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import priv.yjs.umbrellasharing.exception.GlobalException;
 
+import java.util.function.Predicate;
+
 /**
  * 统一结果
  *
@@ -31,5 +33,13 @@ public class CommonResult<T> {
 
     public static CommonResult<Void> with(GlobalException exception) {
         return new CommonResult<>(exception.getCode(), exception.getMessage());
+    }
+
+    /**
+     *
+     * @param funcResult 服务处理结果
+     */
+    public static CommonResult<Void> service(boolean funcResult) {
+        return funcResult ? with(ResultType.SUCCESS) : with(ResultType.FAIL);
     }
 }

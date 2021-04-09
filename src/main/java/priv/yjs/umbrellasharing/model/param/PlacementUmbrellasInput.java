@@ -10,9 +10,8 @@ import java.util.List;
 @Getter
 @Setter
 public class PlacementUmbrellasInput {
-    @NotNull
-    private Long pmId;
-
     @NotEmpty
     List<Long> umbrellaIds;
+    @NotNull
+    private Long pmId;
 }

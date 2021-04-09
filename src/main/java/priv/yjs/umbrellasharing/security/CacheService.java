@@ -2,7 +2,6 @@ package priv.yjs.umbrellasharing.security;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import priv.yjs.umbrellasharing.common.LocalCache;
 
 import javax.annotation.Resource;
 import java.time.Duration;

@@ -6,14 +6,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.validation.BindException;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.util.WebUtils;
 import priv.yjs.umbrellasharing.common.CommonResult;
 import priv.yjs.umbrellasharing.common.ResultType;
-
 
 
 /**
@@ -33,16 +31,16 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<CommonResult<Void>> exceptionHandler(Exception ex, WebRequest request) {
-        log.info("ExceptionHandler: {}",ex.getMessage());
+        log.info("ExceptionHandler: {}", ex.getMessage());
         HttpHeaders headers = new HttpHeaders();
         if (ex instanceof GlobalException) {
             return handleGlobalException((GlobalException) ex, headers, request);
         }
         if (ex instanceof InternalAuthenticationServiceException) {
-            return handleIASE((InternalAuthenticationServiceException)ex,headers,request);
+            return handleIASE((InternalAuthenticationServiceException) ex, headers, request);
         }
         if (ex instanceof BindException) {
-            return handleBindException((BindException)ex,headers,request);
+            return handleBindException((BindException) ex, headers, request);
         }
         // notes:  这里可以自定义其他的异常拦截
         return this.handleException(ex, headers, request);
@@ -52,7 +50,7 @@ public class GlobalExceptionHandler {
         var errors = ex.getBindingResult().getAllErrors();
         String message = "参数错误";
         if (!errors.isEmpty()) {
-             message = errors.get(0).getDefaultMessage();
+            message = errors.get(0).getDefaultMessage();
         }
         CommonResult<Void> body = new CommonResult<>(500, message);
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;

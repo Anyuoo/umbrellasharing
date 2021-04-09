@@ -23,6 +23,7 @@ import java.util.*;
 public class PlacementService extends ServiceImpl<PlacementMapper, Placement> implements IService<Placement> {
     @Resource
     private UmbrellaService umbrellaService;
+
     /**
      * 根据id更新
      */
@@ -55,7 +56,8 @@ public class PlacementService extends ServiceImpl<PlacementMapper, Placement> im
 
     /**
      * 添加雨伞到放置点
-     * @param pmId 放置点id
+     *
+     * @param pmId        放置点id
      * @param umbrellaIds 雨伞id
      */
     @Transactional(rollbackFor = GlobalException.class)
@@ -69,7 +71,7 @@ public class PlacementService extends ServiceImpl<PlacementMapper, Placement> im
 
         final List<Umbrella> umbrellas = new ArrayList<>(ids.size());
         //查询雨伞信息和修改雨伞状态
-        ids.forEach(id ->{
+        ids.forEach(id -> {
             umbrellaService.getById(id).ifPresent(umbrella -> {
                 umbrella.setPmId(pmId);
                 umbrellas.add(umbrella);

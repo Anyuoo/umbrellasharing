@@ -13,6 +13,7 @@ public final class CommonConst {
     public static final long BORROW_MINUTE = 60 * 2;
     //租借超时，计算费用（3 RMB/Hour）
     public static final int BORROW_EXPIRE_PRICE = 3;
+
     private CommonConst() {
     }
 }

@@ -6,10 +6,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 
 /**
-*Redis 配置
-* @author Anyu
-* @since 2021/4/9
-*/
+ * Redis 配置
+ *
+ * @author Anyu
+ * @since 2021/4/9
+ */
 public class RedisConfig {
 
     @Bean("redisTemplate")

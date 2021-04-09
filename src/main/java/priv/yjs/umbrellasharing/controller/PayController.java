@@ -10,13 +10,15 @@ import com.ijpay.core.kit.QrCodeKit;
 import com.ijpay.core.kit.WxPayKit;
 import com.ijpay.wxpay.WxPayApi;
 import com.ijpay.wxpay.WxPayApiConfig;
-import com.ijpay.wxpay.WxPayApiConfigKit;
 import com.ijpay.wxpay.model.UnifiedOrderModel;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import priv.yjs.umbrellasharing.annotation.CommonResultHandler;
 import priv.yjs.umbrellasharing.common.ResultType;
 import priv.yjs.umbrellasharing.service.PayService;
@@ -46,7 +48,7 @@ public class PayController {
     private PayService payService;
 
     @ApiOperation("微信支付")
-    @PostMapping()
+    @PostMapping
     public ResultType pay() {
         if (payService.pay()) {
             return ResultType.SUCCESS;
@@ -91,7 +93,7 @@ public class PayController {
     public String scanCodeNotify(HttpServletRequest request, HttpServletResponse response) {
         try {
             String result = HttpKit.readData(request);
-           // 获取返回的信息内容中各个参数的值
+            // 获取返回的信息内容中各个参数的值
             Map<String, String> map = WxPayKit.xmlToMap(result);
 
             String appId = map.get("appid");

@@ -11,6 +11,7 @@ public class BorrowInput {
      * 雨伞id
      */
     private Long umbrellaId;
+
     /**
      * 是否归还
      */

@@ -23,8 +23,8 @@ public enum ResultType {
     SYS_ARGS_ERROR(false, 2009, "系统参数错误"),
     NOT_RETURN(false, 2010, "有未归还记录"),
     NOT_PAY(false, 2011, "有未支付记录"),
-    PLACEMENT_NOT_EXIST(null,2012,"放置点不存在"),
-    USER_NOT_LOGIN(null,2013,"用户未登录"),
+    PLACEMENT_NOT_EXIST(null, 2012, "放置点不存在"),
+    USER_NOT_LOGIN(null, 2013, "用户未登录"),
     ORDER_NOT_EXIST(null, 2014, "订单不存在"),
     ;
 

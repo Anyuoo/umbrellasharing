@@ -7,10 +7,9 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotBlank;
 
 /**
-*
-* @author Anyu
-* @since 2021/4/9
-*/
+ * @author Anyu
+ * @since 2021/4/9
+ */
 @Getter
 @Setter
 public class LoginInput {

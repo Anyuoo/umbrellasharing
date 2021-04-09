@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import priv.yjs.umbrellasharing.annotation.CommonResultHandler;
+import priv.yjs.umbrellasharing.common.CommonResult;
 import priv.yjs.umbrellasharing.common.ResultType;
 import priv.yjs.umbrellasharing.model.param.UmbrellaInput;
 import priv.yjs.umbrellasharing.model.param.UmbrellaUpdateInput;
@@ -29,19 +30,13 @@ public class UmbrellaController {
 
     @ApiOperation("添加雨伞信息")
     @PostMapping
-    public ResultType saveUmbrellaInfo(@Validated UmbrellaInput input) {
-        if (umbrellaService.saveUmbrella(input.toEntity())) {
-            return ResultType.SUCCESS;
-        }
-        return ResultType.FAIL;
+    public CommonResult<Void> saveUmbrellaInfo(@Validated UmbrellaInput input) {
+        return CommonResult.service(umbrellaService.saveUmbrella(input.toEntity()));
     }
 
     @ApiOperation("修改雨伞信息")
     @PutMapping
-    public ResultType updateUmbrellaInfo(UmbrellaUpdateInput input) {
-        if (umbrellaService.updateById(input.toEntity())) {
-            return ResultType.SUCCESS;
-        }
-        return ResultType.FAIL;
+    public CommonResult<Void> updateUmbrellaInfo(UmbrellaUpdateInput input) {
+        return CommonResult.service(umbrellaService.updateById(input.toEntity()));
     }
 }

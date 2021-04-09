@@ -27,7 +27,7 @@ public class LoginService {
     /**
      * 登录验证
      *
-     * @param username  账号
+     * @param username 账号
      * @param password 密码
      * @return token
      */

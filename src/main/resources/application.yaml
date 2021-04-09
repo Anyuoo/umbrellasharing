@@ -8,8 +8,8 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    #url: jdbc:mysql://8.129.20.24:3306/umbrella_sharing?tinyInt1isBit=false&useSSL=false&serverTimezone=GMT%2B8
-    url: jdbc:mysql://172.17.0.1:3306/umbrella_sharing?tinyInt1isBit=false&useSSL=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://8.129.20.24:3306/umbrella_sharing?tinyInt1isBit=false&useSSL=false&serverTimezone=GMT%2B8
+#    url: jdbc:mysql://172.17.0.1:3306/umbrella_sharing?tinyInt1isBit=false&useSSL=false&serverTimezone=GMT%2B8
     username: root
     password: 123456
 
@@ -18,10 +18,10 @@ spring:
     time-zone: GMT+8
     default-property-inclusion: non_null
   redis:
-    host: 8.192.20.24
+    host: 8.129.20.24
     port: 6379
     database: 1
-    password: yong520
+    password: yong520...
 
 mybatis-plus:
   configuration:

@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @CommonResultHandler
-@Api(tags = "登录API")
+@Api(tags = "登录模块")
 public class LoginController {
     @Resource
     private LoginService loginService;

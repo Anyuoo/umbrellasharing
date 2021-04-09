@@ -11,7 +11,7 @@ import priv.yjs.umbrellasharing.common.CommonResult;
 import priv.yjs.umbrellasharing.model.param.UserRegisterInput;
 import priv.yjs.umbrellasharing.service.UserService;
 
-@Api(tags = "用户API")
+@Api(tags = "用户模块")
 @RestController
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class UserController {

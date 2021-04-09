@@ -37,7 +37,7 @@ import java.util.Optional;
  * @author Anyu
  * @since 2021/4/8
  */
-@Api(tags = "支付API")
+@Api(tags = "支付模块")
 @RestController
 @RequestMapping(path = "/payments")
 @CommonResultHandler
@@ -47,7 +47,7 @@ public class PayController {
     @Resource
     private PayService payService;
 
-    @ApiOperation("微信支付")
+    @ApiOperation("支付")
     @PostMapping
     public ResultType pay() {
         if (payService.pay()) {

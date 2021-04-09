@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  * @author Anyu
  * @since 2021/4/7
  */
-@Api(tags = "借伞API")
+@Api(tags = "租借模块")
 @RestController
 public class BorrowController {
     @Resource

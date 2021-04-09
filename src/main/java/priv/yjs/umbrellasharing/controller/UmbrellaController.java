@@ -18,7 +18,7 @@ import javax.annotation.Resource;
  * @since 2021/4/7
  */
 @RestController
-@Api(tags = "雨伞API")
+@Api(tags = "雨伞模块")
 @RequestMapping(path = "/umbrellas")
 @CommonResultHandler
 public class UmbrellaController {

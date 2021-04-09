@@ -19,7 +19,7 @@ import java.util.List;
  * @author Anyu
  * @since 2021/4/8
  */
-@Api(tags = "放置点API")
+@Api(tags = "放置点模块")
 @RestController
 @RequestMapping(path = "/placements")
 public class PlacementController {

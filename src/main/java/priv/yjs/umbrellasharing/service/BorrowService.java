@@ -31,18 +31,21 @@ public class BorrowService extends ServiceImpl<BorrowMapper, Borrow> implements 
     /**
      * 借伞
      */
-    public boolean borrowUmbrella(Borrow borrow) {
-        //设置当前登陆者的id
-        borrow.setUserId(hostHolder.getLoginUserId());
+    public boolean borrowUmbrella(long umbrellaId) {
+        //当前登陆者的id
+        long loginUserId = hostHolder.getLoginUserId();
         //查询用户是否有未归还记录
-        if (getNotReturnBorrowByUserId(borrow.getUserId()).isPresent()) {
+        if (getNotReturnBorrowByUserId(loginUserId).isPresent()) {
             throw GlobalException.causeBy(ResultType.NOT_RETURN);
         }
         //查询用户是否有未支付订单
-        if (orderService.getOrderByUserId(borrow.getUserId()).isPresent()) {
+        if (orderService.getOrderByUserId(loginUserId).isPresent()) {
             throw GlobalException.causeBy(ResultType.NOT_PAY);
         }
-        borrow.setReturned(false);
+        var borrow = new Borrow()
+                .setUserId(loginUserId)
+                .setUmbrellaId(umbrellaId)
+                .setReturned(false);
         return save(borrow);
     }
 

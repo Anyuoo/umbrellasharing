@@ -12,8 +12,6 @@ import java.util.Optional;
 
 @Service
 public class UmbrellaService extends ServiceImpl<UmbrellaMapper, Umbrella> implements IService<Umbrella> {
-    @Resource
-    private PlacementService placementService;
 
     /**
      * 添加雨伞

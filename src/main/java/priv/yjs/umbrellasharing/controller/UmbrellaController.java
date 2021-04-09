@@ -3,10 +3,7 @@ package priv.yjs.umbrellasharing.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import priv.yjs.umbrellasharing.annotation.CommonResultHandler;
 import priv.yjs.umbrellasharing.common.CommonResult;
 import priv.yjs.umbrellasharing.common.ResultType;
@@ -38,5 +35,11 @@ public class UmbrellaController {
     @PutMapping
     public CommonResult<Void> updateUmbrellaInfo(UmbrellaUpdateInput input) {
         return CommonResult.service(umbrellaService.updateById(input.toEntity()));
+    }
+
+    @ApiOperation("删除雨伞信息")
+    @DeleteMapping(path = "/{id}")
+    public CommonResult<Void> removeUmbrella(@PathVariable Long id) {
+        return CommonResult.service(umbrellaService.removeById(id));
     }
 }

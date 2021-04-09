@@ -18,9 +18,10 @@ spring:
     time-zone: GMT+8
     default-property-inclusion: non_null
   redis:
-    host: 172.17.0.1
+    host: 8.192.20.24
     port: 6379
     database: 1
+    password: yong520
 
 mybatis-plus:
   configuration:

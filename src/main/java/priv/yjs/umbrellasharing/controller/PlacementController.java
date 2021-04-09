@@ -6,7 +6,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import priv.yjs.umbrellasharing.annotation.CommonResultHandler;
 import priv.yjs.umbrellasharing.common.CommonResult;
-import priv.yjs.umbrellasharing.common.ResultType;
 import priv.yjs.umbrellasharing.model.entity.Placement;
 import priv.yjs.umbrellasharing.model.param.PlacementInput;
 import priv.yjs.umbrellasharing.model.param.PlacementUmbrellasInput;
@@ -33,6 +32,12 @@ public class PlacementController {
         return CommonResult.service(placementService.savePlacement(input.toEntity()));
     }
 
+    @ApiOperation("删除放置点")
+    @DeleteMapping (path = "/{id}")
+    public CommonResult<Void> removePlacement(@PathVariable Long id) {
+        return CommonResult.service(placementService.removeById(id));
+    }
+
     @ApiOperation("修改放置点")
     @PutMapping
     public CommonResult<Void> updatePlacement(@Validated PlacementUpdateInput input) {
@@ -48,7 +53,7 @@ public class PlacementController {
 
     @ApiOperation("添加雨伞")
     @PutMapping("/umbrellas")
-    public CommonResult<Void> addUmbrellas(PlacementUmbrellasInput input) {
+    public CommonResult<Void> addUmbrellas(@Validated PlacementUmbrellasInput input) {
         return CommonResult.service(placementService.addUmbrellas(input.getPmId(), input.getUmbrellaIds()));
     }
 }

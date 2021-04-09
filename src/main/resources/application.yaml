@@ -1,0 +1,43 @@
+server:
+  port: 9001
+  servlet:
+    context-path: /api
+spring:
+  application:
+    name: umbrella-sharing
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #url: jdbc:mysql://8.129.20.24:3306/umbrella_sharing?tinyInt1isBit=false&useSSL=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://172.17.0.1:3306/umbrella_sharing?tinyInt1isBit=false&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+
+  jackson:
+    date-format: "yyyy-MM-dd HH:mm:ss"
+    time-zone: GMT+8
+    default-property-inclusion: non_null
+  redis:
+    host: 172.17.0.1
+    port: 6379
+    database: 1
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      logic-delete-field: status
+      logic-delete-value: 2
+      logic-not-delete-value: 0
+
+#微信支付
+wx:
+  pay:
+    app-id: ss
+    app-secret: ss
+    cert-path: ss
+    mch-id: s
+    domain: d
+    partner-key: a
+

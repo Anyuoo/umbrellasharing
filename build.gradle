@@ -1,0 +1,57 @@
+plugins {
+    id 'org.springframework.boot' version '2.4.3'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'idea'
+}
+
+group = 'priv.yjs'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 11
+targetCompatibility = 11
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    // 本地maven仓库
+    mavenLocal()
+    mavenCentral()
+    maven { url = 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    //和maven中央仓库一样的另一个依赖管理仓库,主要是java
+    jcenter()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    //微信支付
+    implementation 'com.github.javen205:IJPay-WxPay:2.7.3'
+
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'mysql:mysql-connector-java:8.0.20'
+    annotationProcessor 'org.projectlombok:lombok'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    //mybatis-plus
+    compile 'com.baomidou:mybatis-plus-boot-starter:3.4.2'
+    //common-lang3
+    compileOnly 'org.apache.commons:commons-lang3:3.11'
+    //jwt
+    compileOnly 'io.jsonwebtoken:jjwt-api:0.11.2'
+    compileOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
+    compileOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+    //fox
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+    useJUnitPlatform()
+}

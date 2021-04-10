@@ -29,31 +29,31 @@ public class PlacementController {
     @ApiOperation("创建放置点")
     @PostMapping
     public CommonResult<Void> createPlacement(@Validated PlacementInput input) {
-        return CommonResult.service(placementService.savePlacement(input.toEntity()));
+        return CommonResult.handleFuncForBool(placementService.savePlacement(input.toEntity()));
     }
 
     @ApiOperation("删除放置点")
     @DeleteMapping (path = "/{id}")
     public CommonResult<Void> removePlacement(@PathVariable Long id) {
-        return CommonResult.service(placementService.removeById(id));
+        return CommonResult.handleFuncForBool(placementService.removeById(id));
     }
 
     @ApiOperation("修改放置点")
     @PutMapping
     public CommonResult<Void> updatePlacement(@Validated PlacementUpdateInput input) {
-        return CommonResult.service(placementService.updatePlacement(input.toEntity()));
+        return CommonResult.handleFuncForBool(placementService.updatePlacement(input.toEntity()));
     }
 
     @ApiOperation("查询所有放置点")
     @GetMapping(path = "/all")
     @CommonResultHandler
-    public List<Placement> listAllPlacement() {
-        return placementService.list();
+    public CommonResult<List<Placement>> listAllPlacement() {
+        return CommonResult.handleForResult(()->placementService.list());
     }
 
     @ApiOperation("添加雨伞")
     @PutMapping("/umbrellas")
     public CommonResult<Void> addUmbrellas(@Validated PlacementUmbrellasInput input) {
-        return CommonResult.service(placementService.addUmbrellas(input.getPmId(), input.getUmbrellaIds()));
+        return CommonResult.handleFuncForBool(placementService.addUmbrellas(input.getPmId(), input.getUmbrellaIds()));
     }
 }

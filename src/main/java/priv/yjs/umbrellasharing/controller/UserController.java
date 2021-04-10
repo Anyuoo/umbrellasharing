@@ -21,6 +21,6 @@ public class UserController {
     @ApiOperation("用户注册")
     @PostMapping("/register")
     public CommonResult<Void> register(@Validated UserRegisterInput input) {
-        return CommonResult.service(userService.register(input.toEntity()));
+        return CommonResult.handleFuncForBool(userService.register(input.toEntity()));
     }
 }

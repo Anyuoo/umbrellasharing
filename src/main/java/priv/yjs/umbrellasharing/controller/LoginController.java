@@ -6,6 +6,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import priv.yjs.umbrellasharing.annotation.CommonResultHandler;
+import priv.yjs.umbrellasharing.common.CommonResult;
 import priv.yjs.umbrellasharing.model.param.LoginInput;
 import priv.yjs.umbrellasharing.service.LoginService;
 
@@ -22,7 +23,7 @@ public class LoginController {
 
     @ApiOperation("用户登录")
     @PostMapping("/login")
-    public Optional<String> login(@Validated LoginInput input) {
-        return loginService.login(input.getUsername(), input.getPassword());
+    public CommonResult<Optional<String>> login(@Validated LoginInput input) {
+        return CommonResult.handleForResult(()->loginService.login(input.getUsername(), input.getPassword()));
     }
 }

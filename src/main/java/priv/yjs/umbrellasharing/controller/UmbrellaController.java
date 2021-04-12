@@ -27,18 +27,18 @@ public class UmbrellaController {
     @ApiOperation("添加雨伞信息")
     @PostMapping
     public CommonResult<Void> saveUmbrellaInfo(@Validated UmbrellaInput input) {
-        return CommonResult.handleFuncForBool(umbrellaService.saveUmbrella(input.toEntity()));
+        return CommonResult.applyByBool(umbrellaService.saveUmbrella(input.toEntity()));
     }
 
     @ApiOperation("修改雨伞信息")
     @PutMapping
     public CommonResult<Void> updateUmbrellaInfo(UmbrellaUpdateInput input) {
-        return CommonResult.handleFuncForBool(umbrellaService.updateById(input.toEntity()));
+        return CommonResult.applyByBool(umbrellaService.updateById(input.toEntity()));
     }
 
     @ApiOperation("删除雨伞信息")
     @DeleteMapping(path = "/{id}")
     public CommonResult<Void> removeUmbrella(@PathVariable Long id) {
-        return CommonResult.handleFuncForBool(umbrellaService.removeById(id));
+        return CommonResult.applyByBool(umbrellaService.removeById(id));
     }
 }

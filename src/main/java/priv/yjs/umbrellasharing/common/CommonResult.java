@@ -18,19 +18,31 @@ import java.util.function.Supplier;
  * @author Anyu
  * @since 2021/3/27
  */
-@RequiredArgsConstructor
+
 @Getter
 public class CommonResult<T> {
     private final Integer code;
+    private final Boolean success;
     private final String message;
     private final T data;
 
+    public CommonResult(Integer code, Boolean success, String message, T data) {
+        this.code = code;
+        this.success = success;
+        this.message = message;
+        this.data = data;
+    }
+
     public CommonResult(Integer code, String message) {
-        this(code, message, null);
+        this(code, null, message);
+    }
+
+    public CommonResult(Integer code, Boolean success, String message) {
+        this(code, success, message, null);
     }
 
     public static <T> CommonResult<T> with(ResultType resultType, T data) {
-        return new CommonResult<>(resultType.getCode(), resultType.getMessage(), data);
+        return new CommonResult<>(resultType.getCode(),resultType.getSuccess(), resultType.getMessage(), data);
     }
 
     public static <T> CommonResult<T> with(ResultType resultType) {
@@ -41,15 +53,15 @@ public class CommonResult<T> {
         return new CommonResult<>(exception.getCode(), exception.getMessage());
     }
 
-    public static CommonResult<Void> success() {
+    public static CommonResult<Void> succeed() {
         return with(ResultType.SUCCESS, null);
     }
 
-    public static <T> CommonResult<T> success(T data) {
+    public static <T> CommonResult<T> succeed(T data) {
         return with(ResultType.SUCCESS, data);
     }
 
-    public static <T> CommonResult<T> fail() {
+    public static <T> CommonResult<T> failed() {
         return with(ResultType.FAIL, null);
     }
 
@@ -59,8 +71,8 @@ public class CommonResult<T> {
      *对于结果是bool值处理
      * @param funcResult 服务处理结果
      */
-    public static CommonResult<Void> handleFuncForBool(boolean funcResult) {
-        return funcResult ? success() : fail();
+    public static CommonResult<Void> applyByBool(boolean funcResult) {
+        return funcResult ? succeed() : failed();
     }
 
     /**
@@ -68,17 +80,13 @@ public class CommonResult<T> {
     * @author Anyu
     * @since 2021/4/10
     */
-    public static <T> CommonResult<T> handleForResult(Supplier<T> supplier) {
+    public static <T> CommonResult<T> applyByData(Supplier<T> supplier) {
         return handleResult(supplier.get());
-    }
-
-    public static <A, R> CommonResult<R> handleForResult(A agr, Function<A, R> function) {
-        return handleResult(function.apply(agr));
     }
 
     public static <T> CommonResult<T> handleResult(T result) {
         if (Objects.isNull(result)) {
-            return fail();
+            return failed();
         }
         //返回结果为ResultType
         if (result instanceof ResultType) {
@@ -88,9 +96,9 @@ public class CommonResult<T> {
         if (result instanceof Optional) {
             @SuppressWarnings("unchecked")
             Optional<T> r = (Optional<T>) result;
-            return r.map(CommonResult::success).orElseGet(CommonResult::fail);
+            return r.map(CommonResult::succeed).orElseGet(CommonResult::failed);
         }
         //其他
-        return success(result);
+        return succeed(result);
     }
 }

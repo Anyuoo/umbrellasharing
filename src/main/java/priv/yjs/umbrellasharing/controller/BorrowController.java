@@ -23,12 +23,12 @@ public class BorrowController {
     @ApiOperation("借伞")
     @PostMapping("/borrow/{umbrellaId}")
     public CommonResult<Void> borrowUmbrella(@PathVariable Long umbrellaId) {
-        return CommonResult.handleFuncForBool(borrowService.borrowUmbrella(umbrellaId));
+        return CommonResult.applyByBool(borrowService.borrowUmbrella(umbrellaId));
     }
 
     @ApiOperation("还伞")
     @PostMapping("/return/{umbrellaId}")
     public CommonResult<Void>  returnUmbrella(@PathVariable Long umbrellaId) {
-        return CommonResult.handleFuncForBool(borrowService.returnUmbrella(umbrellaId));
+        return CommonResult.applyByBool(borrowService.returnUmbrella(umbrellaId));
     }
 }

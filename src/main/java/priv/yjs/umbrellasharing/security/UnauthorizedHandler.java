@@ -18,7 +18,7 @@ import java.io.IOException;
 public class UnauthorizedHandler implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
-        response.setStatus(200);
+        response.setStatus(401);
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         response.getWriter().print("认证失败，无法访问系统资源");

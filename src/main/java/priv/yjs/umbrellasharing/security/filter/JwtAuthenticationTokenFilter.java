@@ -1,6 +1,8 @@
 package priv.yjs.umbrellasharing.security.filter;
 
 
+import com.ijpay.alipay.AliPayApiConfig;
+import com.ijpay.alipay.AliPayApiConfigKit;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -25,9 +27,12 @@ import java.io.IOException;
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Resource
     private TokenService tokenService;
+    @Resource
+    private AliPayApiConfig aliPayApiConfig;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        AliPayApiConfigKit.setThreadLocalAliPayApiConfig(aliPayApiConfig);
         //判断token时效性
         tokenService.getLoginUser(request)
                 .ifPresent(loginUser -> {

@@ -7,7 +7,6 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 本地缓存
  *
- * @author Anyu
  * @since 2021/3/24
  */
 @Component

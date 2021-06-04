@@ -2,18 +2,19 @@ package priv.yjs.umbrellasharing.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import priv.yjs.umbrellasharing.common.HostHolder;
 import priv.yjs.umbrellasharing.common.ResultType;
 import priv.yjs.umbrellasharing.exception.GlobalException;
 import priv.yjs.umbrellasharing.mapper.BorrowMapper;
-import priv.yjs.umbrellasharing.model.entity.Borrow;
+import priv.yjs.umbrellasharing.model.entity.*;
+import priv.yjs.umbrellasharing.model.vo.BorrowVo;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * 借还服务层
@@ -27,44 +28,52 @@ public class BorrowService extends ServiceImpl<BorrowMapper, Borrow> implements 
     private OrderService orderService;
     @Resource
     private HostHolder hostHolder;
+    @Resource
+    private UmbrellaService umbrellaService;
+    @Resource
+    private PlacementService placementService;
 
     /**
      * 借伞
      */
+    @Transactional(rollbackFor = Throwable.class)
     public boolean borrowUmbrella(long umbrellaId) {
         //当前登陆者的id
-        long loginUserId = hostHolder.getLoginUserId();
+        long loginUserId = hostHolder.getValidLUId();
         //查询用户是否有未归还记录
         if (getNotReturnBorrowByUserId(loginUserId).isPresent()) {
             throw GlobalException.causeBy(ResultType.NOT_RETURN);
         }
         //查询用户是否有未支付订单
-        if (orderService.getOrderByUserId(loginUserId).isPresent()) {
+        if (orderService.getUnpaidOrderByUserId(loginUserId).isPresent()) {
             throw GlobalException.causeBy(ResultType.NOT_PAY);
         }
+       ;
         var borrow = new Borrow()
+                .setBorrowPm( placementService.getByUmbrellaId(umbrellaId).map(Placement::getPosition).orElse(""))
                 .setUserId(loginUserId)
                 .setUmbrellaId(umbrellaId)
                 .setReturned(false);
-        return save(borrow);
+        return  umbrellaService.borrow(umbrellaId) && save(borrow);
     }
 
     /**
      * 还伞
      *
-     * @param umbrellaId 雨伞id （任何人都可以归还）
+     *
      */
     @Transactional(rollbackFor = GlobalException.class)
-    public boolean returnUmbrella(long umbrellaId) {
-        final var result = new AtomicBoolean(false);
-        getNotReturnBorrowByUmbrellaId(umbrellaId).ifPresent(borrow -> {
+    public boolean returnUmbrella() {
+        Borrow brw = getNotReturnBorrowByUserId(hostHolder.getLUId()).orElse(null);
+        if (brw != null) {
             //更改租借状态
-            borrow.setReturned(true)
+            brw.setReturned(true)
                     .setReturnTime(LocalDateTime.now());
             //生成订单信息,更新租借信息
-            result.set(orderService.createOrder(borrow) && updateById(borrow));
-        });
-        return result.get();
+            return orderService.createOrder(brw) && updateById(brw) && umbrellaService.returnUmbrella(brw.getUmbrellaId());
+        }
+
+        return false;
     }
 
     /**
@@ -87,5 +96,18 @@ public class BorrowService extends ServiceImpl<BorrowMapper, Borrow> implements 
         return lambdaQuery().eq(Borrow::getUserId, userId)
                 .eq(Borrow::getReturned, false)
                 .oneOpt();
+    }
+
+    public BorrowVo getUnReturnLU() {
+        BorrowVo borrowVo = new BorrowVo();
+        long luId = hostHolder.getLUId();
+        getNotReturnBorrowByUserId(luId).ifPresent(b->{
+            BeanUtils.copyProperties(b,borrowVo);
+            borrowVo.setPmName(placementService.getById(luId).map(Placement::getPosition).orElse(""))
+                    .setUsername(hostHolder.getLoginUser()
+                            .map(LoginUser::getUser)
+                            .map(User::getUsername).orElse(""));
+        });
+        return borrowVo;
     }
 }

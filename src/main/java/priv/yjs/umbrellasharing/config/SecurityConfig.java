@@ -11,6 +11,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import priv.yjs.umbrellasharing.security.UnauthorizedHandler;
 import priv.yjs.umbrellasharing.security.filter.JwtAuthenticationTokenFilter;
 import priv.yjs.umbrellasharing.service.UserDetailsServiceImpl;
@@ -32,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UnauthorizedHandler unauthorizedHandler;
     @Resource
     private UserDetailsServiceImpl userDetailsServiceImpl;
+
 
 
     @Override
@@ -83,8 +88,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 过滤请求
                 .authorizeRequests()
                 // 对于登录login 验证码captchaImage 允许匿名访问
+//                .antMatchers("/umbrellas/idle").anonymous()
+//                .antMatchers("/placements/all").anonymous()
+//                .antMatchers("/pay/notify_url").anonymous()
                 .antMatchers("/login").anonymous()
-                .antMatchers("/register").anonymous()
+                .antMatchers("/users/register").anonymous()
+
+
                 .antMatchers(
                         HttpMethod.GET,
                         "/*.html",
@@ -105,7 +115,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 添加JWT filter
         httpSecurity.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
         // 添加CORS filter
-        //httpSecurity.addFilterBefore(hsCorsFilter, JwtAuthenticationTokenFilter.class);
+        httpSecurity.addFilterBefore(corsFilter(), JwtAuthenticationTokenFilter.class);
         //httpSecurity.addFilterBefore(hsCorsFilter, LogoutFilter.class);
     }
+
+    /**
+     * 跨域过滤器
+     */
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.addAllowedOrigin("*");
+        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.addAllowedMethod("*");
+        source.registerCorsConfiguration("/**", corsConfiguration); // 4
+        return new CorsFilter(source);
+    }
+
 }

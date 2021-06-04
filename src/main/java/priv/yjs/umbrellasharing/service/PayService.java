@@ -22,7 +22,7 @@ public class PayService {
      * 支付
      */
     public boolean pay() {
-        return orderService.updateOrderPayStatus(hostHolder.getLoginUserId());
+        return orderService.updateOrderPayStatus(hostHolder.getValidLUId());
     }
 
 }

@@ -27,7 +27,11 @@ public class HostHolder {
     }
 
 
-    public long getLoginUserId() {
+    public long getValidLUId() {
         return getLoginUser().map(lu -> lu.getUser().getId()).orElseThrow(() -> GlobalException.causeBy(ResultType.USER_NOT_LOGIN));
+    }
+
+    public long getLUId() {
+        return getLoginUser().map(lu -> lu.getUser().getId()).orElse(0L);
     }
 }

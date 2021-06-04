@@ -27,8 +27,15 @@ public class Umbrella extends BaseEntity {
      * 放置点id
      */
     private Long pmId;
+
+    private Integer times;
     /**
      * 单价
      */
     private BigDecimal price;
+
+    /**
+     * 1 free 0 busy
+     */
+    private Boolean idle;
 }

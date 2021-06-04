@@ -25,6 +25,7 @@ public class UmbrellaInput {
 
     public Umbrella toEntity() {
         return new Umbrella()
+                .setTimes(0)
                 .setPrice(price);
     }
 }

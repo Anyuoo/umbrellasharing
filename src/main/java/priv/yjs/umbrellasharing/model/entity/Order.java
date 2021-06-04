@@ -9,6 +9,7 @@ import lombok.experimental.Accessors;
 import priv.yjs.umbrellasharing.common.BaseEntity;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 /**
  * 订单表
@@ -31,6 +32,8 @@ public class Order extends BaseEntity {
      * 支付方
      */
     private Long payerId;
+
+    private Long brwId;
     /**
      * 收款方
      */
@@ -39,4 +42,6 @@ public class Order extends BaseEntity {
      * 是否支付（false未支付，true已支付）
      */
     private Boolean hasPaid;
+
+
 }

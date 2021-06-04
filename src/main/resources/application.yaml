@@ -8,8 +8,8 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://8.129.20.24:3306/umbrella_sharing?tinyInt1isBit=false&useSSL=false&serverTimezone=GMT%2B8
-#    url: jdbc:mysql://172.17.0.1:3306/umbrella_sharing?tinyInt1isBit=false&useSSL=false&serverTimezone=GMT%2B8
+#    url: jdbc:mysql://8.129.20.24:3306/umbrella_sharing?tinyInt1isBit=false&useSSL=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://172.17.0.1:3306/umbrella_sharing?tinyInt1isBit=false&useSSL=false&serverTimezone=GMT%2B8
     username: root
     password: 123456
 
@@ -18,10 +18,11 @@ spring:
     time-zone: GMT+8
     default-property-inclusion: non_null
   redis:
-    host: 8.129.20.24
+#    host: 8.129.20.24
     port: 6379
     database: 1
     password: yong520...
+    host: 172.17.0.1
 
 mybatis-plus:
   configuration:
@@ -32,13 +33,10 @@ mybatis-plus:
       logic-delete-value: 2
       logic-not-delete-value: 0
 
-#微信支付
-
-pay:
-  wx:
-    app-id: \u5E94\u7528\u7F16\u53F7
-    app-secret: appSecret \u662F appId \u5BF9\u5E94\u7684\u63A5\u53E3\u5BC6\u7801\uFF0C\u5FAE\u4FE1\u516C\u4F17\u53F7\u6388\u6743\u83B7\u53D6\u7528\u6237 openId \u65F6\u4F7F\u7528
-    cert-path: \u5FAE\u4FE1\u652F\u4ED8\u5546\u6237\u53F7
-    mch-id: API \u5BC6\u94A5
-    domain: \u5916\u7F51\u8BBF\u95EE\u9879\u76EE\u7684\u57DF\u540D\uFF0C\u652F\u4ED8\u901A\u77E5\u4E2D\u4F1A\u4F7F\u7528
-    partner-key: apiclient_cert.p1 \u8BC1\u4E66\u8DEF\u5F84\uFF0C\u5728\u5FAE\u4FE1\u5546\u6237\u540E\u53F0\u4E0B\u8F7D
+#支付
+alipay:
+  app-id: 2021000117648729
+  domain: http://localhost
+  private-key: MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCUIJWlNpvNlQLNx/2C9o5gUTy0C2T5NcYHatrYbLPL8DEzSAhJFZSC70JrDozPIOUJEQSffoFtdlcOQKLArNv0kit2mpJRDSUuuKwry0Yl2trgPnsKrmkZrDvNe+3fVWxiS5VXzuP0m5QMu0Uyiw4OeDetkumn09UPNJiiPo9zLl0UaJSHynN6mLzC6NQUWAeEsJ7V1qbuNa4/n34FdcO9doBTY0xr2/D4RTnUx+zHogUlT654VmmxANPyubUMWrYK8SbENrHGtxfDJ5Mgl8MELgcnftAI05yB23KaDX33toyH5Tn0cyDDKxW/Sdba8AFJwIxg5hWc2MYj6ggaKPzLAgMBAAECggEBAI+YdvlOUwOcrLcoZM4MjkE4/4vab+xXAL44DCc6WaIeGtQHxGB1Fx9HKi/2TvKMhPuhD8Y+MOIYkpQyfJQj/qa8/H1hou4HvD/qrp1V1Y7k9sHkUAsuwJwup1qwBQ04FnXDp+cTnVCHcaJV+OLigqHsUK1nejND24t+BWljFFUm4XrkhqzzUSXqwqnNsXosyvHepPp0jZaK76VfMvvYPVhx/KPVA1WQ6zcCAtWStaIQhEpKLuBOX8tvccph/bEeQMPSHH9SD9u5667V5sA5m6PzOq8OzocQtN89xyi3stzoW2CpbGgh1TkVkMQNTTBbC+WyVAbu9NO6ZctKv/a+AgECgYEA6ITDDSHMere28dFboMoJr9iuC7ELyaLqtUxrq7vmWuKA+12ovEXOBdp1xfUFqnB9v6lj8LSXbrSUfA+j4p6SO+jGnacx8gjSBm6e35JpzhVsF1s7CweY/7wC4gRxpFhmhbN4Jsjni9neoaSBjDytzdknLKww/zJVhtpTL4H48cECgYEAoxYT3Y785kTjmHnsYRTl/azXfxKStan3keACvbmM27E7jA9+m6V7LaKZuXC/tzlY4wI8tnQFpAXa8GtMVRFUzsavifY6iaB9F//9SqbawcStqntc+LQPSa961GoYXL0Z/5rZj1X5e+J4NMFBZWY/ghuuZpVIGXvXrrxUggkZ+YsCgYEAyTgTQCsOtOiFxpFCNUyCw43FWNLXe6Ckc072IsFSITbBHkc4Pe4+06vxneVkCNKe0B18IpN2NVTK5u32CqjlrjjMoSROwcFGWFCk5p/jNngteaz21J23lyCSchwcaHgkCPJ+OTpFvy5FTyd5AO6GDo0tLKi7Ii3h+/i2YnedA0ECgYB+BUdgg2dlQIJmhoBkHFQEjBURenanrilCLcmwdbsk4HVVK3v4Jg1jHCyRoVBj8wp+kHH9wvXA401lTmRzr6rLBbkLcJuXUc6YRxWhJAISjTptbFpRTEIr/E976Gfe8bkvTKclHZhlZIDisxsnkbUtgtpnJp/KIWpu+dSLjyDlNQKBgQDUNiB85Fz9Zhd1n2vFWTJ0hFoKdyTccQHP5davDhElXDDEcfK7TmZhxG1mwRn9MsPUgYNaw0deDlKQihnNWGEcoSJ4wdzCQMifPWjsnsttYsuk0i2tyJ5r9PAfGY866+yS+NI2D4uQwS2nKIJpWfDmd86c0Qya1JRJcPRxHgelYg==
+  public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnzERIuxSuUNW6LtZFUoQOVXFIzUmPwBtQhHedhgv3PlQgrf9KVFT7CzuTzlRluIu+tzm2LckBjNt0tPNK8Gs/prLMxxXmuTtdWzk7bA+GoglIazEHV3ANzi9nRFKNjeEEwDNGOWF62ciFeIZ/dIFiOUDMIH31bQgUVt+k+8iSCKN/3YygfPKFUd9XJIRt/MU/OmiPCYdTvkBaFUARu9sda8ryUSnU7SiyLYzyUdmv4ayxMUx8ygpmnPsZFi6vz6T2PNTq+6gU+LTTf3FTgXzvJLGOxBvLTkXNW9CAfgWgNiSXJtYwYSP/4DDZM04yZNZ+8wIlRVkFfOXr6EOu6/laQIDAQAB
+  server-url: https://openapi.alipaydev.com/gateway.do

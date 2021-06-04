@@ -1,13 +1,17 @@
 package priv.yjs.umbrellasharing.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import priv.yjs.umbrellasharing.annotation.CommonResultHandler;
 import priv.yjs.umbrellasharing.common.CommonResult;
+import priv.yjs.umbrellasharing.model.entity.Umbrella;
 import priv.yjs.umbrellasharing.model.param.UmbrellaInput;
+import priv.yjs.umbrellasharing.model.param.UmbrellaPageCondition;
 import priv.yjs.umbrellasharing.model.param.UmbrellaUpdateInput;
+import priv.yjs.umbrellasharing.model.vo.UmbrellaVo;
 import priv.yjs.umbrellasharing.service.UmbrellaService;
 
 import javax.annotation.Resource;
@@ -41,4 +45,12 @@ public class UmbrellaController {
     public CommonResult<Void> removeUmbrella(@PathVariable Long id) {
         return CommonResult.applyByBool(umbrellaService.removeById(id));
     }
+
+    @ApiOperation("查询雨伞信息")
+    @GetMapping(path = "/idle")
+    public CommonResult<Page<UmbrellaVo>> listIdleUmbrellas(@Validated  UmbrellaPageCondition condition) {
+        return CommonResult.handleResult(umbrellaService.listIdleUmbrellas(condition));
+    }
+
+
 }

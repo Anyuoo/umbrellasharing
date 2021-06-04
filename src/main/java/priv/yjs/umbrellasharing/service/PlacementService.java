@@ -45,6 +45,13 @@ public class PlacementService extends ServiceImpl<PlacementMapper, Placement> im
 
     }
 
+    public Optional<Placement> getByUmbrellaId(Long umId) {
+        Umbrella umbrella = umbrellaService.getById(umId).orElse(null);
+        if (umbrella == null)
+            return Optional.empty();
+        return getById(umbrella.getPmId());
+    }
+
     /**
      * 创建放置点
      */

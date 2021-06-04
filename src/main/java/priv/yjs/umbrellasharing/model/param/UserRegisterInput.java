@@ -28,6 +28,7 @@ public class UserRegisterInput {
 
     public User toEntity() {
         return new User()
+                .setGender(false)
                 .setUsername(username)
                 .setNickname(nickname)
                 .setPassword(password);

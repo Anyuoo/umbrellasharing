@@ -3,7 +3,6 @@ package priv.yjs.umbrellasharing.common;
 /**
  * 全局常量
  *
- * @author Anyu
  * @since 2021/4/8
  */
 public final class CommonConst {
